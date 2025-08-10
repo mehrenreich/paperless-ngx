@@ -46,6 +46,7 @@ services:
     depends_on:
       - db
       - broker
+      - tika
     ports:
       - "8010:8000"
     volumes:
@@ -64,6 +65,9 @@ services:
       - traefik.http.routers.paperless.entrypoints=websecure
       - traefik.http.routers.paperless.tls=true
       - traefik.http.services.paperless.loadbalancer.server.port=8000
+  tika:
+    image: docker.io/apache/tika:latest
+    restart: unless-stopped
 volumes:
   data:
   media:
